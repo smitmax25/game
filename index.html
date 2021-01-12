@@ -11,8 +11,18 @@
     <script>
       const canvas = document.getElementById('canvas')
       const ctx = canvas.getContext('2d')
-      ctx.fillStyle = 'mediumSeaGreen'
-      ctx.fillRect(0, 0, 500, 500)
+      var keyPressed = false
+      function draw(){
+        ctx.fillStyle = keyPressed
+          ? 'mediumSeaGreen'
+          : 'black'
+        ctx.fillRect(0, 0, 500, 500)
+      }
+      draw()
+      window.addEventListener('keydown', function(){
+        keyPressed = !keyPressed
+        draw()
+      })
     </script>
   </body>
 </html>
