@@ -4,8 +4,15 @@
     <title>Game</title>
   </head>
   <body>
-    <h1>Hi</h1>
-    <h2>Hi</h2>
-    <p>Hi</p>
+    <h1>Gabg Game</h1>
+    <canvas id="canvas" width="500" height="500"></canvas>
+
+
+    <script>
+      const canvas = document.getElementById('canvas')
+      const ctx = canvas.getContext('2d')
+      ctx.fillStyle = 'mediumSeaGreen'
+      ctx.fillRect(0, 0, 500, 500)
+    </script>
   </body>
 </html>
