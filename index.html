@@ -4,53 +4,78 @@
     <title>Game</title>
   </head>
   <body>
-    <h1>Test Game</h1>
-    <canvas id="canvas" width="1000" height="500"></canvas>
+    <!-- <h1>Test Game</h1> -->
+    <canvas id="canvas"></canvas>
 
 
     <script>
       const canvas = document.getElementById('canvas')
       const ctx = canvas.getContext('2d')
+
+      var resize = () => {
+        canvas.height = window.innerHeight
+        canvas.width = window.innerWidth
+      }
+      resize();
+
       var keyPressed = false
       var Player = {
         x: 100,
         y: 100,
         radius: 50,
-        color: "blue",
+        color: "turquoise",
       }
 
+      // Keys that are pressed
+      const keysPressed = new Set()
+      // Handle keydown
+      window.addEventListener('keydown', e => {
+        keysPressed.add(e.key)
+      })
+      // Handle keyup
+      window.addEventListener('keyup', e => {
+        keysPressed.delete(e.key)
+      })
+
       function draw(){
-        ctx.clearRect(0, 0, 1000, 500)
+        if(keysPressed.has('ArrowRight')){
+          Player.x += 3
+        }
+        if(keysPressed.has('ArrowLeft')){
+          Player.x -= 3 
+        }
+        if(keysPressed.has('ArrowUp')){
+          Player.y -= 3
+        }
+        if(keysPressed.has('ArrowDown')){
+          Player.y += 3
+        }
+
+        ctx.clearRect(0, 0, window.innerWidth, window.innerHeight)
         ctx.beginPath()
-        ctx.fillStyle = 'black'
+        ctx.fillStyle = 'turquoise'
     
         ctx.arc(Player.x, Player.y, Player.radius, 0, 2*Math.PI)
         ctx.stroke()
         ctx.fill()
+
+        requestAnimationFrame(draw)
       }
+
       draw()
-      
-      window.addEventListener('keydown', function (e){
-        switch (e.key) {
-          case "ArrowUp":
-            Player.y -= 10
-            draw()
-            break;
-          case "ArrowLeft":
-            Player.x -= 10
-            draw()
-            break;
-          case "ArrowDown":
-            Player.y += 10
-            draw()
-            break;
-          case "ArrowRight":
-            Player.x += 10
-            draw()
-            break;
-        }
-        
-      })
     </script>
+    <style>
+      #canvas {
+        width: 100%;
+        height: 100%;
+        margin: 0px;
+        padding: 0px;
+      }
+      body {
+        margin: 0px;
+        padding: 0px;
+        overflow: hidden;
+      }
+    </style>
   </body>
 </html>
