@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Game</title>
+    <title>Blue Shoes</title>
   </head>
   <body>
     <!-- <h1>Test Game</h1> -->
@@ -49,6 +49,24 @@
         }
         if(keysPressed.has('ArrowDown')){
           Player.y += 3
+        }
+        
+        Player.y += 2
+
+        if(Player.y - Player.radius < 0) {
+          Player.y = Player.radius;
+        }
+
+        if(Player.x - Player.radius < 0) {
+          Player.x = Player.radius;
+        }
+
+        if(Player.x + Player.radius > canvas.width) {
+          Player.x = canvas.width - Player.radius;
+        }
+
+        if(Player.y + Player.radius > canvas.height) {
+          Player.y = canvas.height - Player.radius;
         }
 
         ctx.clearRect(0, 0, window.innerWidth, window.innerHeight)
