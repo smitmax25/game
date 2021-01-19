@@ -22,8 +22,22 @@
       var Player = {
         x: 100,
         y: 100,
+        vx: 0,
+        vy: 0,
+        ax: 0,
+        ay: 0,
+        jx: 0,
+        jy: 0,
         radius: 50,
         color: "turquoise",
+      }
+  
+      var jump = () => {
+        if (Player.y == canvas.height - Player.radius) {  // is on ground
+          Player.vy = -12
+          Player.ay = 0.025
+          Player.jy = 0.02
+        }
       }
 
       // Keys that are pressed
@@ -45,13 +59,21 @@
           Player.x -= 3 
         }
         if(keysPressed.has('ArrowUp')){
-          Player.y -= 3
+          jump()
         }
         if(keysPressed.has('ArrowDown')){
           Player.y += 3
         }
         
-        Player.y += 2
+        Player.y += 4
+
+        Player.x += Player.vx
+        Player.vx += Player.ax
+        Player.ax += Player.jx
+
+        Player.y += Player.vy
+        Player.vy += Player.ay
+        Player.ay += Player.jy
 
         if(Player.y - Player.radius < 0) {
           Player.y = Player.radius;
@@ -71,7 +93,7 @@
 
         ctx.clearRect(0, 0, window.innerWidth, window.innerHeight)
         ctx.beginPath()
-        ctx.fillStyle = 'turquoise'
+        ctx.fillStyle = 'skyblue'
     
         ctx.arc(Player.x, Player.y, Player.radius, 0, 2*Math.PI)
         ctx.stroke()
